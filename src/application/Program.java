@@ -23,18 +23,24 @@ public class Program {
 				System.out.println();
 				System.out.print("Source: ");
 				ChessPosition source = UI.readChessPosition(sc);
-				
+
 				boolean[][] possibleMoves = match.possibleMoves(source);
 				UI.clearScreen();
-				UI.printBoard(match.getPieces(), possibleMoves);	
-				
+				UI.printBoard(match.getPieces(), possibleMoves);
+
 				System.out.println();
 				System.out.print("Target: ");
 				ChessPosition target = UI.readChessPosition(sc);
 				ChessPiece capturedPiece = match.perfomChessMove(source, target);
-				
-				if(capturedPiece != null) {
+
+				if (capturedPiece != null) {
 					captured.add(capturedPiece);
+				}
+
+				if (match.getPromoted() != null) {
+					System.out.print("Enter piece for promotion (B/N/R/Q): ");
+					String type = sc.nextLine();
+					match.replacePromotedPiece(type);
 				}
 			} catch (ChechException e) {
 				System.out.println(e.getMessage());
